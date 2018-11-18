@@ -1,7 +1,8 @@
 $(document).ready(function() {
   console.log('scripts loaded');
 
-  var url = 'http://api.open-notify.org/iss-now.json';
+  var myKey = config.MY_KEY;
+  var url = 'https://api.wheretheiss.at/v1/satellites/25544';
   var lat = '';
   var lon = '';
   var local = '';
@@ -34,15 +35,15 @@ $(document).ready(function() {
       dataType: 'json',
       async: true,
       success: function(data) {
-        lat = data.iss_position.latitude;
-        lon = data.iss_position.longitude;
+        lat = data.latitude;
+        lon = data.longitude;
         myMap.panTo([lat, lon], animate = true);
 
         L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
           attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
           maxZoom: 18,
           id: 'mapbox.satellite',
-          accessToken: 'pk.eyJ1IjoiYWR2dSIsImEiOiJjam4zdDVlOGQyeGpxM2tvMmphOGJxYW1lIn0.gtW-IChpLU7NKuoe2SPt8w'
+          accessToken: myKey
         }).addTo(myMap);
         //set new circle and iss icon coordinates
         circle.setLatLng([lat, lon]);
@@ -61,8 +62,8 @@ $(document).ready(function() {
       async: true,
       success: function(data) {
         console.log(data);
-        lat = data.iss_position.latitude;
-        lon = data.iss_position.longitude;
+        lat = data.latitude;
+        lon = data.longitude;
         //use geocoding API to reverse geocode
         $.ajax({
           type: 'GET',
