@@ -49,7 +49,7 @@ $(document).ready(function() {
         iss.setLatLng([lat, lon]);
       },
       error: function(errorMsg) {
-        alert("Unable to create map");
+        console.log("Unable to create map");
       }
     });
     //use space station API to get current latitude and longitude
@@ -104,7 +104,7 @@ $(document).ready(function() {
         }); //end of innter ajax
       }, //end of outer success
       error: function(errorMsg) {
-        alert('Could not retrieve coordinates of ISS');
+        console.log('Could not retrieve coordinates of ISS');
       }
     }); //end of outer ajax
     setTimeout(moveISS, 5000);
